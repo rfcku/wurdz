@@ -3,7 +3,7 @@ const Profile = ({ user }) => {
 };
 
 export async function getServerSideProps() {
-  const users = await fetcher("/u/get");
+  const users = await fetcher("/u");
   return {
     props: {
       visits: 0,
