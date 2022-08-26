@@ -7,4 +7,5 @@ export default function handler(req, res) {
       title: `#${faker.random.word()}`,
     };
   });
+  return res.status(200).json({ data: tags });
 }
