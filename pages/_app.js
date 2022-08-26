@@ -1,10 +1,13 @@
 import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
-import { transitions, positions, Provider as AlertProvider } from "react-alert";
+import { SSRProvider } from "react-bootstrap";
 
 import Layout from "../providers/layout.provider";
 import ThemeProvider from "../providers/theme.provider";
 import AlertTemplate from "../providers/alert.provider";
+
+import { transitions, positions, Provider as AlertProvider } from "react-alert";
+
 import "./style.css";
 
 const options = {
@@ -18,17 +21,19 @@ const options = {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <SessionProvider session={session}>
-      <ThemeProvider>
-        <NextUIProvider>
-          <AlertProvider template={AlertTemplate} {...options}>
-            <Layout session={session} {...pageProps}>
-              <Component {...pageProps} />
-            </Layout>
-          </AlertProvider>
-        </NextUIProvider>
-      </ThemeProvider>
-    </SessionProvider>
+    <SSRProvider>
+      <SessionProvider session={session}>
+        <ThemeProvider>
+          <NextUIProvider>
+            <AlertProvider template={AlertTemplate} {...options}>
+              <Layout session={session} {...pageProps}>
+                <Component {...pageProps} />
+              </Layout>
+            </AlertProvider>
+          </NextUIProvider>
+        </ThemeProvider>
+      </SessionProvider>
+    </SSRProvider>
   );
 }
 

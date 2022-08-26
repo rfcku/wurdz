@@ -16,10 +16,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          {CssBaseline.flush()}
-          <title>wurdz.xyz</title>
-        </Head>
+        <Head>{CssBaseline.flush()}</Head>
         <body>
           <div>
             {/* <!-- Global site tag (gtag.js) - Google Analytics --> */}

@@ -22,7 +22,7 @@ import Input from "../input";
 export default function Content({ posts, tags }) {
   if (!posts) return null;
   return (
-    <Container fluid gap={1} style={{ padding: 0 }} align="center">
+    <Container gap={1} style={{ padding: 0 }} align="center">
       <Grid.Container>
         <Grid xs={12} align="flex-end" justify="flex-end">
           <Button.Group light>

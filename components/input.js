@@ -40,7 +40,6 @@ export default function Input() {
             </Grid>
             <Grid xs={10} css={{ paddingBottom: 20 }}>
               <Textarea
-                light
                 labelLeft={<BsChatText />}
                 labelRight={<BsChatText />}
                 placeholder="Enter your amazing ideas."

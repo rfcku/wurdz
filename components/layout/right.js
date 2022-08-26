@@ -18,7 +18,7 @@ import { default as LoginBtn } from "../login-btn";
 import { CgCommunity } from "react-icons/cg";
 export default function Sidebar({ boards }) {
   return (
-    <Container fluid gap={0}>
+    <Container gap={0}>
       <Grid.Container>
         <Grid>
           <Spacer />
@@ -32,7 +32,7 @@ export default function Sidebar({ boards }) {
               <CgCommunity /> boards
             </Text>
           </Grid>
-          <Grid.Container fullwidth>
+          <Grid.Container>
             {boards.map((board, i) => {
               return (
                 <Grid

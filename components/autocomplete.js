@@ -169,13 +169,13 @@ export default function Grouped() {
             {...params}
             label="Search ..."
             // InputProps={{ style: { borderRadius: "15px" } }}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton aria-label="toggle password visibility" edge="end">
-                  <BiAccessibility />
-                </IconButton>
-              </InputAdornment>
-            }
+            // endAdornment={
+            //   <InputAdornment position="end">
+            //     <IconButton aria-label="toggle password visibility" edge="end">
+            //       <BiAccessibility />
+            //     </IconButton>
+            //   </InputAdornment>
+            // }
           />
         )}
       />

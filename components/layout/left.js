@@ -15,8 +15,8 @@ import { BsHeart } from "react-icons/bs";
 import { BiLineChart } from "react-icons/bi";
 export default function Module({ tags }) {
   return (
-    <Container fluid gap={0}>
-      <Grid.Container fluid>
+    <Container gap={0}>
+      <Grid.Container>
         <Grid
           xs={12}
           justify="flex-start"
