@@ -1,3 +1,4 @@
+import { fetcher } from "../utils";
 const Profile = ({ user }) => {
   return <div data-token="${TOKEN_FOUND}">{user.username}</div>;
 };
