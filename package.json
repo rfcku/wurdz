@@ -1,0 +1,53 @@
+{
+  "name": "app1",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.8.4",
+    "@mui/material": "^5.9.2",
+    "@nextui-org/react": "^1.0.0-beta.9",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/gitlab": "^9.4.1",
+    "@semantic-release/npm": "^9.0.1",
+    "@types/jest": "^28.1.6",
+    "crypto-js": "^4.1.1",
+    "dayjs": "^1.11.5",
+    "eslint": "8.21.0",
+    "eslint-config-next": "12.2.4",
+    "formik": "^2.2.9",
+    "jest": "^28.1.3",
+    "next": "^12.2.5",
+    "next-auth": "^4.10.3",
+    "next-themes": "^0.2.0",
+    "next-videos": "^1.5.0",
+    "notistack": "^2.0.5",
+    "pokedex-promise-v2": "^4.0.0",
+    "prettier": "^2.7.1",
+    "react": "18.2.0",
+    "react-alert": "^7.0.3",
+    "react-alert-template-basic": "^1.0.2",
+    "react-dom": "18.2.0",
+    "react-icons": "^4.4.0",
+    "react-particles-js": "^3.6.0",
+    "react-player": "^2.10.1",
+    "react-spring": "^9.5.2",
+    "react-use-gesture": "^9.1.3",
+    "semantic-release": "^19.0.3",
+    "swr": "^1.3.0",
+    "ts-jest": "^28.0.7",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.4.0"
+  }
+}
