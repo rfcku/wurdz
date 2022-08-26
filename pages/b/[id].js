@@ -26,9 +26,9 @@ export default function Home({ posts, tags, boards }) {
 }
 
 export async function getServerSideProps() {
-  const posts = await fetcher("/p/get");
-  const tags = await fetcher("/t/get");
-  const boards = await fetcher("/b/get");
+  const posts = await fetcher("/p");
+  const tags = await fetcher("/t");
+  const boards = await fetcher("/b");
 
   return {
     props: {

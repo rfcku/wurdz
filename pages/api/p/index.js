@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-export default function get(req, res) {
+export default function handler(req, res) {
   const posts = Array.from({ length: 5 }).map((i) => {
     return {
       title: faker.lorem.words(),

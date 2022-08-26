@@ -44,7 +44,7 @@ export default function Home({ user, posts }) {
 }
 
 export async function getServerSideProps() {
-  const user = await fetcher("/u/get");
+  const user = await fetcher("/u");
 
   return {
     props: {
