@@ -34,14 +34,9 @@ export default function Navbar() {
           alignItems="center"
           alignContent="center"
         >
-          <Text h1>wurdz</Text>
-          <Spacer />
           <AutoComplete />
         </Grid>
         <Grid xs={6} direction="row-reverse">
-          <Grid>
-            <LoginBtn />
-          </Grid>
           <Grid
             alignContent="center"
             alignItems="center"

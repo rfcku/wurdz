@@ -1,5 +1,14 @@
-export { default as RightBar } from "./rightbar";
-export { default as LeftBar } from "./leftbar";
-export { default as Content } from "./content";
+export { default as Right } from "./right";
+export { default as Left } from "./left";
+export { default as Center } from "./center";
 export { default as Navbar } from "./navbar";
-export { default as Single } from "./single";
+
+const Layout = ({ center }) => {
+  return (
+    <Container>
+      <Left>THIS</Left>
+      <Center>THIS</Center>
+      <Right>THIS</Right>
+    </Container>
+  );
+};
