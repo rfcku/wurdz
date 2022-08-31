@@ -1,6 +1,5 @@
 import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
-import { SSRProvider } from "react-bootstrap";
 
 import Layout from "../providers/layout.provider";
 import ThemeProvider from "../providers/theme.provider";
@@ -21,19 +20,17 @@ const options = {
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-    <SSRProvider>
-      <SessionProvider session={session}>
-        <ThemeProvider>
-          <NextUIProvider>
-            <AlertProvider template={AlertTemplate} {...options}>
-              <Layout session={session} {...pageProps}>
-                <Component {...pageProps} />
-              </Layout>
-            </AlertProvider>
-          </NextUIProvider>
-        </ThemeProvider>
-      </SessionProvider>
-    </SSRProvider>
+    <SessionProvider session={session}>
+      <ThemeProvider>
+        <NextUIProvider>
+          <AlertProvider template={AlertTemplate} {...options}>
+            <Layout session={session} {...pageProps}>
+              <Component {...pageProps} />
+            </Layout>
+          </AlertProvider>
+        </NextUIProvider>
+      </ThemeProvider>
+    </SessionProvider>
   );
 }
 

@@ -1,41 +1,11 @@
-import { Grid, Container, Text, Spacer } from "@nextui-org/react";
-import { Right, Left, Center, Navbar } from "../../components/layout";
-import { fetcher } from "../../utils";
-export default function Home({ posts, tags, boards }) {
-  if (!posts) return null;
+import Boards from "../../components/boards/list";
+import Tags from "../../components/tags/list";
+import SingleBoard from "../../components/boards/single";
+import Layout from "../../components/layout";
+export default function Component() {
   return (
-    <Container>
-      <Grid.Container gap={2}>
-        <Grid xs={2}>
-          <Left tags={tags} />
-        </Grid>
-        <Grid xs={8} direction="column">
-          <Grid xs={12}>
-            <Navbar />
-          </Grid>
-          <Grid>
-            <Center posts={posts} />
-          </Grid>
-        </Grid>
-        <Grid xs={2}>
-          <Right boards={boards} />
-        </Grid>
-      </Grid.Container>
-    </Container>
+    <Layout left={<Tags />} right={<Boards />}>
+      <SingleBoard />
+    </Layout>
   );
-}
-
-export async function getServerSideProps() {
-  const posts = await fetcher("/p");
-  const tags = await fetcher("/t");
-  const boards = await fetcher("/b");
-
-  return {
-    props: {
-      visits: 0,
-      tags,
-      posts,
-      boards,
-    },
-  };
 }

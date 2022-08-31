@@ -1,25 +1,25 @@
-import { createTheme } from "@nextui-org/react"
-import { ThemeProvider as NextThemesProvider } from 'next-themes';
+import { createTheme } from "@nextui-org/react";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 const lightTheme = createTheme({
-  type: 'light',
-})
+  type: "light",
+});
 
 const darkTheme = createTheme({
-  type: 'dark',
-})
+  type: "dark",
+});
 
 export default function ThemeProvider({ children }) {
-    return (
+  return (
     <NextThemesProvider
-        defaultTheme="system"
-        attribute="class"
-        value={{
-            light: lightTheme.className,
-            dark: darkTheme.className
-        }}
+      defaultTheme="system"
+      attribute="class"
+      value={{
+        light: lightTheme.className,
+        dark: darkTheme.className,
+      }}
     >
-        {children}
+      {children}
     </NextThemesProvider>
-    )
+  );
 }

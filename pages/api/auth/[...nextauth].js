@@ -1,3 +1,4 @@
+import axios from "../../../utils";
 import NextAuth from "next-auth";
 import AppleProvider from "next-auth/providers/apple";
 import GoogleProvider from "next-auth/providers/google";
@@ -8,50 +9,38 @@ import Auth0Provider from "next-auth/providers/auth0";
 export default NextAuth({
   secret: process.env.SECRET,
   debug: true,
+  pages: {
+    signIn: "/auth/signin",
+  },
   providers: [
-    // OAuth authentication providers
-    // AppleProvider({
-    //   clientId: process.env.APPLE_ID,
-    //   clientSecret: process.env.APPLE_SECRET,
-    // }),
-    // GoogleProvider({
-    //   clientId: process.env.GOOGLE_ID,
-    //   clientSecret: process.env.GOOGLE_SECRET,
-    // }),
-    // Sign in with passwordless email link
-    // EmailProvider({
-    //   server: process.env.MAIL_SERVER,
-    //   from: "<no-reply@example.com>",
-    // }),
-    Auth0Provider({
-      clientId: process.env.AUTH0_CLIENT_ID,
-      clientSecret: process.env.AUTH0_CLIENT_SECRET,
-      issuer: process.env.AUTH0_ISSUER,
-    }),
     CredentialsProvider({
-      // The name to display on the sign in form (e.g. 'Sign in with...')
       name: "Credentials",
-      // The credentials is used to generate a suitable form on the sign in page.
-      // You can specify whatever fields you are expecting to be submitted.
-      // e.g. domain, username, password, 2FA token, etc.
-      // You can pass any HTML attribute to the <input> tag through the object.
       credentials: {
-        email: {
-          label: "Email",
+        username: {
+          label: "Username",
           type: "text",
-          placeholder: "jsmith@email.com",
+          placeholder: "@email",
         },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const user = {
-          id: 1,
-          name: "J Smith",
-          email: "jsmith@example.com",
-          picture: "aoisddaiodjsoajisaoijsd",
-        };
+        const request = await fetch("http://localhost:4000/login", {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(credentials),
+        });
+        const user = await request.json();
 
-        if (user) {
+        console.log("User request", user);
+
+        if (user && user.token) {
+          if (typeof window !== "undefined") {
+            localStorage.setItem("@@wurdz-token", JSON.stringify(user.token));
+          }
+
           return user;
         } else {
           return null;

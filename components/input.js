@@ -1,26 +1,18 @@
 import {
   Grid,
-  Container,
   Text,
-  Row,
   Button,
-  Col,
-  Link,
-  Input as NextInput,
+  Input,
   Textarea,
   Card,
-  Spacer,
-  Dropdown,
   Avatar,
 } from "@nextui-org/react";
 
 import {
   BsChatText,
-  BsFillChatTextFill,
   BsFillImageFill,
   BsFillEmojiLaughingFill,
 } from "react-icons/bs";
-import { MdOutlineGif } from "react-icons/md";
 import { RiFileGifFill } from "react-icons/ri";
 import { CgPoll } from "react-icons/cg";
 import { TbCalendarTime } from "react-icons/tb";

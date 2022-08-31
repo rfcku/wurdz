@@ -1,30 +1,16 @@
-import {
-  Grid,
-  Container,
-  Text,
-  Row,
-  Col,
-  Link,
-  Input,
-  Card,
-  Spacer,
-} from "@nextui-org/react";
-import AutoComplete from "../autocomplete";
+import useSWR from "swr";
+import { Grid, Container, Text, Card, Spacer } from "@nextui-org/react";
 
-import { BsHeart } from "react-icons/bs";
+import { fetcher } from "../../utils";
 import { BiLineChart } from "react-icons/bi";
-export default function Module({ tags }) {
+
+export default function Module() {
+  const { data } = useSWR(`/b`, fetcher);
+  if (!data) return <div>No Data</div>;
+  const { rows } = data;
   return (
     <Container gap={0}>
       <Grid.Container>
-        <Grid
-          xs={12}
-          justify="flex-start"
-          alignItems="center"
-          alignContent="center"
-        >
-          <Text h1>wurdz</Text>
-        </Grid>
         <Grid.Container>
           <Grid>
             <Spacer />
@@ -33,7 +19,7 @@ export default function Module({ tags }) {
               Top <BiLineChart />
             </Text>
           </Grid>
-          {tags.map((tags, i) => {
+          {rows.map((tags, i) => {
             return (
               <Grid
                 xs={12}
@@ -46,7 +32,7 @@ export default function Module({ tags }) {
                 }}
               >
                 <Card key={i} css={{ padding: 10, width: "100%" }} isPressable>
-                  <Text>{tags.title}</Text>
+                  <Text>{tags.name}</Text>
                 </Card>
               </Grid>
             );

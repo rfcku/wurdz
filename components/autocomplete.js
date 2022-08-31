@@ -1,8 +1,7 @@
 import TextField from "@mui/material/TextField";
-import { Autocomplete, InputAdornment, IconButton } from "@mui/material/";
+import { Autocomplete } from "@mui/material/";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useTheme } from "@nextui-org/react";
-import { BiAccessibility } from "react-icons/bi";
 const top100Films = [
   { title: "The Shawshank Redemption", year: 1994 },
   { title: "The Godfather", year: 1972 },
