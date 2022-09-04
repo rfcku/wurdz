@@ -2,10 +2,11 @@ import { Container } from "@nextui-org/react";
 import { List, ListItem } from "@mui/material";
 import Post from "../post";
 import useSWR from "swr";
-import { fetcher } from "../../utils";
+import axios from "../../utils";
 
 export default function Module() {
-  const { data, error } = useSWR("/p", fetcher);
+  const populate = ["comments", "board", "author"];
+  const { data, error } = useSWR(`/p?${populate.join(",")}`, axios);
   if (!data) return <div>No Data</div>;
   const { rows, total, page, pageSize, totalPages } = data;
   return (

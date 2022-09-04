@@ -18,7 +18,7 @@ import { CgPoll } from "react-icons/cg";
 import { TbCalendarTime } from "react-icons/tb";
 import { BiCurrentLocation } from "react-icons/bi";
 
-export default function Input() {
+export const PostInput = () => {
   return (
     <Card css={{ p: 6 }}>
       <Card.Body>
@@ -77,4 +77,4 @@ export default function Input() {
       </Card.Body>
     </Card>
   );
-}
+};

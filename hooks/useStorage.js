@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { crypt } from "../pages/api/hello";
-const TOKEN_NAME = process.env.TOKEN_NAME || "rftoken";
+const TOKEN_NAME = process.env.TOKEN_NAME || "@@wurdz-token";
 
 const decryptArray = (arr) => {
   return JSON.parse(arr).map((x) => {

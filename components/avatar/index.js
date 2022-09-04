@@ -24,14 +24,16 @@ export default function App() {
         color="gray"
         // shadow
         onClick={handler}
+        style={{ cursor: "pointer" }}
         squared
         icon={
           <Avatar
             onClick={handler}
             squared
             src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-            // width="34px"
-            // height="34px"
+            width="34px"
+            height="34px"
+            style={{ cursor: "pointer" }}
           />
         }
       />

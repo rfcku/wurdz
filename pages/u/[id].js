@@ -1,55 +1,26 @@
-import { Grid, Avatar, Container, Text, Card } from "@nextui-org/react";
-import { Navbar } from "../../components/layout";
-import { fetcher } from "../../utils";
+import Boards from "../../components/boards/list";
+import Tags from "../../components/tags/list";
+import Profile from "../../components/user/profile";
+import Layout from "../../components/layout";
 
-export default function Home({ user, posts }) {
-  if (!user) return null;
-  return (
-    <Container>
-      <Grid.Container gap={2}>
-        <Grid xs={12}>
-          <Navbar />
-        </Grid>
-      </Grid.Container>
-      <Grid.Container gap={2}>
-        <Card>
-          <Card.Body>
-            <Grid
-              xs={12}
-              align="center"
-              justify="center"
-              alignContent="center"
-              alignItems="center"
-            >
-              <Avatar
-                src="https://i.pravatar.cc/150?u=a04258114e29026702d"
-                css={{ size: "$30" }}
-              />
-            </Grid>
-            <Grid
-              xs={12}
-              align="center"
-              justify="center"
-              alignContent="center"
-              alignItems="center"
-              direction="column"
-            >
-              <Text h2>@{user.username}</Text>
-            </Grid>
-          </Card.Body>
-        </Card>
-      </Grid.Container>
-    </Container>
+import { Container } from "@nextui-org/react";
+import { useRouter } from "next/router";
+import axios from "../../utils";
+import useSWR from "swr";
+
+export default function Component() {
+  const router = useRouter();
+  const { id } = router.query;
+  const populates = ["author", "votes", "board", "thread", "comments"];
+  const { data, error } = useSWR(
+    `/u/${id}?populate=${populates.join(",")}`,
+    axios
   );
-}
+  console.log("THIS DATA", data);
 
-export async function getServerSideProps() {
-  const user = await fetcher("/u");
-
-  return {
-    props: {
-      visits: 0,
-      user: user[0],
-    },
-  };
+  return (
+    <Layout left={<Tags />} right={<Boards />}>
+      <Profile id={id} />
+    </Layout>
+  );
 }

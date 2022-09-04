@@ -1,7 +1,7 @@
 import Alert from "@mui/material/Alert";
 const AlertTemplate = ({ style, options, message, close }) => (
   <Alert
-    variant="outlined"
+    // variant="outlined"
     severity={options.type}
     style={style}
     onClose={close}

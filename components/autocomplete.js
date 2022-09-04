@@ -159,6 +159,7 @@ export default function Grouped() {
         options={options.sort(
           (a, b) => -b.firstLetter.localeCompare(a.firstLetter)
         )}
+        style={{ zIndex: 99 }}
         groupBy={(option) => option.firstLetter}
         getOptionLabel={(option) => option.title}
         sx={{ width: 300 }}
@@ -167,6 +168,7 @@ export default function Grouped() {
             className="autocomplete-class"
             {...params}
             label="Search ..."
+            style={{ zIndex: 99 }}
             // InputProps={{ style: { borderRadius: "15px" } }}
             // endAdornment={
             //   <InputAdornment position="end">

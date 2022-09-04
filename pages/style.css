@@ -1,3 +1,7 @@
 .autocomplete-class > div{
     border-radius: 18px;
 }
+
+.nextui-collapse-view{
+    padding:0
+}

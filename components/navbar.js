@@ -4,7 +4,8 @@ import LoginBtn from "./loginBtn";
 import { useTheme as useNextTheme } from "next-themes";
 import { useTheme } from "@nextui-org/react";
 import { BsFillSunFill, BsMoonFill, BsGithub } from "react-icons/bs";
-
+import Search from "./search";
+import Create from "./post/create";
 export default function Component() {
   const { setTheme } = useNextTheme();
   const { isDark, type } = useTheme();
@@ -27,7 +28,12 @@ export default function Component() {
         }}
       >
         <Navbar.Item>
-          <BsGithub />
+          <Create />
+        </Navbar.Item>
+        <Navbar.Item>
+          <Link href="https://github.com/rfcku/wurdz.git" target="_blank">
+            <BsGithub />
+          </Link>
         </Navbar.Item>
         <Navbar.Item>
           <Switch
@@ -44,25 +50,7 @@ export default function Component() {
             },
           }}
         >
-          <Input
-            clearable
-            contentLeft={
-              <BsMoonFill fill="var(--nextui-colors-accents6)" size={16} />
-            }
-            contentLeftStyling={false}
-            css={{
-              w: "100%",
-              "@xsMax": {
-                mw: "300px",
-              },
-              "& .nextui-input-content--left": {
-                h: "100%",
-                ml: "$4",
-                dflex: "center",
-              },
-            }}
-            placeholder="Search..."
-          />
+          <Search />
         </Navbar.Item>
         <Navbar.Item>
           <LoginBtn />

@@ -1,6 +1,8 @@
 import axios from "axios";
 
 const API_URL = process.env.API_URL || "http://localhost:3000/api";
+const API2_URL = process.env.API_URL || "http://localhost:4000";
+
 export const fetcher = (url) => {
   console.log("Fetcher", url);
   return fetch(`${API_URL}${url}`)
@@ -13,9 +15,9 @@ axios.defaults.withCredentials = false;
 
 const api = axios.create({
   baseURL:
-    process.env.API_URL ||
+    process.env.API2_URL ||
     process.env.REACT_APP_BASE_URL ||
-    "http://localhost:3000/api",
+    "http://localhost:4000",
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
@@ -24,12 +26,22 @@ const api = axios.create({
 
 const interceptor = api.interceptors.request.use((config) => {
   const myConfig = config;
-  const token = JSON.parse(localStorage.getItem("@@wurdz-token"));
+  let token = false;
+  if (typeof window !== "undefined") {
+    token = localStorage.getItem("@@wurdz-token");
+  }
   if (token) {
     myConfig.headers.Authorization = `Bearer ${token}`;
   }
   return myConfig;
 });
+
+api.interceptors.response.use(
+  ({ data }) => data,
+  (error) => {
+    return { error, data: [] };
+  }
+);
 
 axios.interceptors.request.eject(interceptor);
 export default api;
