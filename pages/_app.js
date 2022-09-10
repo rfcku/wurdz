@@ -8,6 +8,8 @@ import AlertTemplate from "../providers/alert.provider";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 
 import "./style.css";
+import "./markdown-editor.css";
+import "./markdown.css";
 
 const options = {
   // you can also just use 'bottom center'

@@ -1,42 +1,49 @@
 import { useState } from "react";
 import api from "../utils";
 import { useAlert } from "react-alert";
-import { useSession, signOut, signIn } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
+
 export const useComments = ({ tid, cid }) => {
   const { data: session } = useSession();
   const alert = useAlert();
 
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
+  const [value, setValue] = useState("");
 
-  const [text, setText] = useState("");
+  const toggleInput = () => setVisible(!visible);
+  const showInput = () => setVisible(true);
+  const hideInput = () => setVisible(false);
+  const clear = () => setValue("");
 
-  const clear = () => setText("");
   const cancel = () => {
     clear();
-    setVisible(false);
+    hideInput();
   };
-  const onChange = ({ target }) => setText(target.value);
+  const onChange = ({ target }) => setValue(target.value);
+
+  const validateInput = () => {
+    return !!value;
+  };
 
   const save = () => {
-    // if (!session) return signIn();
-    console.log("Handling Save Comment", text);
+    if (!session) return signIn();
+
+    if (!validateInput()) return false;
+
     return api(`/c`, {
       method: "POST",
-      data: JSON.stringify({ tid, text, cid: cid || "" }),
+      data: JSON.stringify({ tid, text: value, cid: cid || "" }),
       responseType: "json",
       headers: {
         "Content-Type": "application/json",
       },
     })
       .then((res) => {
-        console.log("Comment posted!", res);
         alert.show("Comment Posted!");
-        clear();
+        cancel();
       })
       .catch((err) => {
-        console.log("Save comment Error", err);
         alert.error("Something went wrong, try again.");
-        clear();
       });
   };
 
@@ -44,8 +51,11 @@ export const useComments = ({ tid, cid }) => {
     save,
     cancel,
     onChange,
-    text,
+    value,
     visible,
     setVisible,
+    toggleInput,
+    showInput,
+    hideInput,
   };
 };

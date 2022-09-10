@@ -12,7 +12,6 @@ export default function Content() {
     `/p/${id}?populate=${populates.join(",")}`,
     axios
   );
-  console.log("THIS DATA", data);
   if (!data) return <div>No Data</div>;
   return (
     <Container gap={1} style={{ padding: 0 }} align="center">

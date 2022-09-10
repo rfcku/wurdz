@@ -1,22 +1,22 @@
-import { getProviders } from "next-auth/react";
+import { getProviders, useSession } from "next-auth/react";
 import { Grid, Container, Text, Button, Spacer } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import { useLogin } from "../../hooks/useLogin";
 
 export default function SignIn() {
   const router = useRouter();
-
+  const { data: session } = useSession();
   const { query } = router;
+
+  if (session) router.push("/");
+
   if (query) {
     if (query.error) {
       console.log("Query Error -> ", query.error);
     }
   }
   const { form, formik } = useLogin({
-    onSubmit: (resp) => {
-      console.log("Submittion succesfull", resp);
-      alert(JSON.stringify(resp, null, 2));
-    },
+    onSubmit: () => router.push("/"),
   });
   return (
     <Container>

@@ -22,8 +22,7 @@ export const useLogin = ({ onSubmit }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       signIn("credentials", { ...values }).then((resp) => {
-        console.log("NextAuth credentials response", resp);
-        localStorage.setItem("@@wurdz-token", JSON.stringify(resp.token));
+        console.log("NextAuth credentials response");
         if (onSubmit && typeof onSubmit === "function") onSubmit(resp);
       });
     },

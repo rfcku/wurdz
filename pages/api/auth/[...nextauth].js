@@ -33,12 +33,11 @@ export default NextAuth({
           body: JSON.stringify(credentials),
         });
         const user = await request.json();
-
-        console.log("User request", user);
-
         if (user && user.token) {
           if (typeof window !== "undefined") {
-            localStorage.setItem("@@wurdz-token", JSON.stringify(user.token));
+            const token = JSON.stringify(user.token);
+            console.log("Token", token);
+            localStorage.setItem("@@wurdz-token", token);
           }
 
           return user;

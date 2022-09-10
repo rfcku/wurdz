@@ -1,88 +1,72 @@
 import { useState } from "react";
-import api from "../utils";
+import api, { api_multipart } from "../utils";
 import {
   Container,
   Text,
   Row,
-  Input,
+  Grid,
   Textarea,
+  Input,
   Checkbox,
 } from "@nextui-org/react";
+import { useAlert } from "react-alert";
 
 import { useFormik } from "formik";
 import * as yup from "yup";
 
-export const usePost = () => {
+export const usePost = ({ onSubmit }) => {
+  const alert = useAlert();
+
   const validationSchema = yup.object({
-    username: yup.string("Give it a title").required("The title is required"),
-    password: yup.string("Write something").required("body is required"),
+    title: yup.string("Give it a title"),
+    body: yup.string("Write something"),
   });
 
-  const save = () => {
-    return api.post("/p/").then((resp) => {
-      console.log("THIS RESP DATA", resp.data);
-      if (resp.data) {
-        return resp.data;
-      }
-    });
+  const save = (values) => {
+    console.log("Handling Save Post", values);
+    return api(`/p`, {
+      method: "POST",
+      data: JSON.stringify({ ...values }),
+      responseType: "json",
+    })
+      .then((res) => {
+        alert.show("Post Posted!");
+      })
+      .catch((err) => {
+        alert.error("Something went wrong, try again.");
+      });
   };
 
   const formik = useFormik({
     initialValues: {
-      title: "Some Title",
-      body: "Some text",
-      image: "http://pladehold.it/250",
+      body: "",
     },
     validationSchema,
     onSubmit: (values) => {
-      save({ ...values }).then((data) => {
+      save(values).then((data) => {
         console.log("Post creation credentials response", data);
+        if (onSubmit && typeof onSubmit === "function") onSubmit(data);
       });
     },
   });
 
   const form = (
-    <form onSubmit={formik.handleSubmit}>
-      <Container>
-        <Textarea
-          // labelLeft={<BsChatText />}
-          // labelRight={<BsChatText />}
-          placeholder="Enter your amazing ideas."
-          fullWidth
-          // rows={3}
-          minRows={4}
-          maxRows={4}
-          shadow
-          // contentRight={}
-        />
-        <Input
-          clearable
-          bordered
-          fullWidth
-          id="title"
-          name="title"
-          label="title"
-          value={formik.values.title}
-          onChange={formik.handleChange}
-          // error={formik.touched.username && Boolean(formik.errors.username)}
-          // helperText={formik.touched.username && formik.errors.username}
-          // contentLeft={<FaUserAstronaut fill="currentColor" />}
-        />
-        <Input
-          clearable
-          bordered
-          fullWidth
-          id="body"
-          name="body"
-          label="body"
-          type=" body"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          // error={formik.touched.password && Boolean(formik.errors.password)}
-          // helperText={formik.touched.password && formik.errors.password}
-          // contentLeft={<RiLockPasswordFill />}
-        />
-      </Container>
+    <form style={{ width: "100%" }} onSubmit={formik.handleSubmit}>
+      <Grid xs={12}>
+        <Grid xs={12}>
+          <Textarea
+            style={{ width: "100%" }}
+            id="body"
+            fullWidth
+            placeholder="Enter your amazing ideas."
+            minRows={4}
+            maxRows={4}
+            shadow
+            value={formik.values.body}
+            onChange={formik.handleChange}
+          />
+        </Grid>
+      </Grid>
     </form>
   );
 

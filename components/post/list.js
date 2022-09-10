@@ -5,8 +5,8 @@ import useSWR from "swr";
 import axios from "../../utils";
 
 export default function Module() {
-  const populate = ["comments", "board", "author"];
-  const { data, error } = useSWR(`/p?${populate.join(",")}`, axios);
+  const populate = ["comments", "board", "author", "votes"];
+  const { data, error } = useSWR(`/p?populate=${populate.join(",")}`, axios);
   if (!data) return <div>No Data</div>;
   const { rows, total, page, pageSize, totalPages } = data;
   return (
