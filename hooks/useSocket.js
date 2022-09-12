@@ -2,14 +2,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 // import { useEffect } from 'react';
+import { useSession } from "next-auth/react";
 import SocketIo from "socket.io-client";
 
 export default function socketInit() {
-  const socket = SocketIo("http://localhost:3005", {
+  console.log("SOCKET INIT");
+  const { data: session } = useSession();
+  console.log("Socket Sessions", session);
+  const socket = SocketIo("http://localhost:4000", {
     transports: ["websocket"],
     withCredentials: true,
     query: {
-      token: accessToken || "guest",
+      token: (session && session.accessToken) || "guest",
     },
   });
 
