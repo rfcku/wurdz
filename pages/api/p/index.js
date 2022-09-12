@@ -1,11 +1,8 @@
-// import { faker } from "@faker-js/faker";
-import API_URL from "..";
-import axios from "../../../utils";
-
+import api from "../../../utils";
 export default async function handler(req, res) {
   const populates = ["author", "votes", "board"];
   const { token } = req.query;
-  const posts = await axios
+  const posts = await api
     .get(`${API_URL}/all?populate=${populates.join(",")}`)
     .then(({ data, error }) => {
       if (!error) return data;

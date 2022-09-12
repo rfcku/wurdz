@@ -1,15 +1,15 @@
 import { Grid, Text, Avatar } from "@nextui-org/react";
 
-import axios from "../../utils";
+import api from "../../utils";
 import useSWR from "swr";
 
 export default function Profile({ id }) {
   const populates = ["author", "votes", "board", "thread", "comments"];
   const { data, error } = useSWR(
     `/u/${id}?populate=${populates.join(",")}`,
-    axios
+    api.get
   );
-
+  if (!data) return null;
   const { createdAt, email, imageUrl, username } = data;
   console.log("User Data", data);
   return (
