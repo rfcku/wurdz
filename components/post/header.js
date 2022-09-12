@@ -22,7 +22,7 @@ export const Header = (post) => {
             </Text>
           )}
           {board && (
-            <Link href={`/p/${_id}`}>
+            <Link href={`/p/${_id}?c`}>
               <Text
                 h4
                 css={{ lineHeight: "$xs" }}

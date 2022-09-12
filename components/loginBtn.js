@@ -29,7 +29,7 @@ export default function Component() {
             size="lg"
             color="primary"
             name={session.user.name}
-            description={session.user.email}
+            // description={session.user.email}
             src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
           />
         </Dropdown.Trigger>

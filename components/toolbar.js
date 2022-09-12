@@ -14,7 +14,7 @@ const ToolBarButton = ({ onClick, text, size, icon }) => {
 };
 
 export const Toolbar = (toolbar) => {
-  const { size, votes, actions, comments, isComment, title } = toolbar;
+  const { size, votes, actions, comments, isComment } = toolbar;
   return (
     <Grid.Container xs={12} gap={1}>
       <Grid>
@@ -35,9 +35,6 @@ export const Toolbar = (toolbar) => {
             onClick={actions.comments.onClick}
           />
         )}
-      </Grid>
-      <Grid xs={12}>
-        {title} {`${isComment}`}
       </Grid>
     </Grid.Container>
   );

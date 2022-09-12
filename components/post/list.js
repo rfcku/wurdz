@@ -10,19 +10,16 @@ export default function Module() {
   if (!data) return <div>No Data</div>;
   const { rows, total, page, pageSize, totalPages } = data;
   return (
-    <Container align="center">
-      {error && <div>Error</div>}
-      <List>
-        {data &&
-          data.rows &&
-          data.rows.map((post, i) => {
-            return (
-              <ListItem xs={12} key={i}>
-                <Post {...post} />
-              </ListItem>
-            );
-          })}
-      </List>
-    </Container>
+    <List>
+      {data &&
+        data.rows &&
+        data.rows.map((post, i) => {
+          return (
+            <ListItem xs={12} key={i}>
+              <Post {...post} />
+            </ListItem>
+          );
+        })}
+    </List>
   );
 }

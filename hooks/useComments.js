@@ -3,11 +3,13 @@ import api from "../utils";
 import { useAlert } from "react-alert";
 import { useSession, signIn } from "next-auth/react";
 
-export const useComments = ({ tid, cid }) => {
+export const useComments = ({ tid, cid, defaults, actions }) => {
   const { data: session } = useSession();
   const alert = useAlert();
 
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(
+    defaults && defaults.visible ? true : false
+  );
   const [value, setValue] = useState("");
 
   const toggleInput = () => setVisible(!visible);
@@ -40,7 +42,16 @@ export const useComments = ({ tid, cid }) => {
     })
       .then((res) => {
         alert.show("Comment Posted!");
-        cancel();
+        console.log("TJISLKASDFNLAKSD");
+        setVisible(false);
+        setValue("");
+        if (
+          actions &&
+          actions.onSubmit &&
+          typeof actions.onSubmit === "function"
+        ) {
+          actions.onSubmit();
+        }
       })
       .catch((err) => {
         alert.error("Something went wrong, try again.");

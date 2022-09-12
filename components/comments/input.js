@@ -1,11 +1,6 @@
 import { Textarea, Grid, Button } from "@nextui-org/react";
-import { useComments } from "../../hooks/useComments";
-export const Input = ({ tid, cid, setVisible }) => {
-  const { save, text, onChange } = useComments({
-    tid,
-    cid,
-  });
 
+export const Input = ({ value, save, cancel, onChange }) => {
   return (
     <Grid.Container gap={2}>
       <Grid xs={12}>
@@ -15,12 +10,12 @@ export const Input = ({ tid, cid, setVisible }) => {
           css={{ w: "100%" }}
           bordered
           onChange={onChange}
-          value={text}
+          value={value}
         />
       </Grid>
       <Grid.Container gap={1} alignContent="center">
         <Grid>
-          <Button size="xs" color="secondary" onClick={() => setVisible(false)}>
+          <Button size="xs" color="secondary" onClick={cancel}>
             Cancel
           </Button>
         </Grid>

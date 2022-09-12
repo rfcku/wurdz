@@ -9,7 +9,12 @@ export const Comment = (props) => {
     tid,
   };
   return (
-    <Grid.Container>
+    <Grid.Container
+      style={{
+        paddingLeft: 25,
+        borderLeft: "1px solid rgba(255,255,255,0.06)",
+      }}
+    >
       <Header {...cmnt} />
       <Body {...cmnt} />
     </Grid.Container>

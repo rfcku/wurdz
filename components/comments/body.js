@@ -9,9 +9,11 @@ export const Body = (comment) => {
   const { tid, cid, _id, text, votes, replies } = comment;
 
   const {
-    showInput,
     toggleInput,
     visible: input,
+    value,
+    onChange,
+    save,
   } = useComments({
     tid,
     cid,
@@ -33,7 +35,16 @@ export const Body = (comment) => {
         title={"comment toolbar"}
         isComment
       />
-      {input && <Input tid={tid} cid={_id} setVisible={showInput} />}
+      {input && (
+        <Input
+          tid={tid}
+          cid={_id}
+          value={value}
+          cancel={toggleInput}
+          save={save}
+          onChange={onChange}
+        />
+      )}
       {replies && <Comments tid={tid} comments={replies} />}
     </Grid.Container>
   );

@@ -42,7 +42,7 @@ export default function Component() {
             onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
           />
         </Navbar.Item>
-        <Navbar.Item
+        {/* <Navbar.Item
           css={{
             "@xsMax": {
               w: "100%",
@@ -51,7 +51,7 @@ export default function Component() {
           }}
         >
           <Search />
-        </Navbar.Item>
+        </Navbar.Item> */}
         <Navbar.Item>
           <LoginBtn />
         </Navbar.Item>
