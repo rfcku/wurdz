@@ -2,7 +2,6 @@ import axios from "../../../utils";
 export default async function handler(req, res) {
   const populates = ["author", "votes", "board", "thread", "comments"];
   const { id } = req.query;
-  console.log("THIS REQ QUERY", req.query);
   const posts = await axios
     .get(`/p/${id}?populate=${populates.join(",")}`)
     .then(({ data, error }) => {

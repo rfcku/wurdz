@@ -2,13 +2,11 @@ import { Container } from "@nextui-org/react";
 import { List, ListItem } from "@mui/material";
 import Post from "../post";
 import useSWR from "swr";
-import axios from "../../utils";
-import useSocket from "../../hooks/useSocket";
+import api, { fetcher } from "../../utils";
 
 export default function Module() {
-  const socket = useSocket();
   const populate = ["comments", "board", "author", "votes"];
-  const { data, error } = useSWR(`/p?populate=${populate.join(",")}`, axios);
+  const { data, error } = useSWR(`/?populate=${populate.join(",")}`, api.get);
   if (!data) return <div>No Data</div>;
   const { rows, total, page, pageSize, totalPages } = data;
   return (

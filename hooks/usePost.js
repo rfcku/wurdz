@@ -1,16 +1,6 @@
-import { useState } from "react";
-import api, { api_multipart } from "../utils";
-import {
-  Container,
-  Text,
-  Row,
-  Grid,
-  Textarea,
-  Input,
-  Checkbox,
-} from "@nextui-org/react";
+import api from "../utils";
+import { Grid, Textarea } from "@nextui-org/react";
 import { useAlert } from "react-alert";
-
 import { useFormik } from "formik";
 import * as yup from "yup";
 
@@ -23,7 +13,6 @@ export const usePost = ({ onSubmit }) => {
   });
 
   const save = (values) => {
-    console.log("Handling Save Post", values);
     return api(`/p`, {
       method: "POST",
       data: JSON.stringify({ ...values }),

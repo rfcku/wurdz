@@ -1,7 +1,4 @@
-import axios from "axios";
-
-const API_URL = process.env.API_URL || "http://localhost:3000/api";
-const API2_URL = process.env.API_URL || "http://localhost:4000";
+const axios = require("axios");
 
 export const fetcher = (url) => {
   console.log("Fetcher", url);
@@ -14,10 +11,7 @@ export const fetcher = (url) => {
 axios.defaults.withCredentials = false;
 
 const api = axios.create({
-  baseURL:
-    process.env.API2_URL ||
-    process.env.REACT_APP_BASE_URL ||
-    "http://localhost:4000",
+  baseURL: process.env.API_URL,
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
@@ -25,14 +19,11 @@ const api = axios.create({
 });
 
 export const api_multipart = axios.create({
-  baseURL:
-    process.env.API2_URL ||
-    process.env.REACT_APP_BASE_URL ||
-    "http://localhost:4000",
+  baseURL: process.env.API_URL,
   responseType: "json",
-  // headers: {
-  //   "Content-Type": "multipart/form-data",
-  // },
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
 });
 
 const interceptor = api.interceptors.request.use((config) => {

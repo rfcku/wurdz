@@ -12,8 +12,10 @@ export default function Component() {
   const open = () => setVisible(true);
   const close = () => setVisible(false);
   const handler = () => {
-    if (!session) signIn("credentials");
+    if (!session) return signIn("credentials");
+    open();
   };
+
   return (
     <>
       <Modal

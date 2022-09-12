@@ -16,8 +16,8 @@ const validationSchema = yup.object({
 export const useLogin = ({ onSubmit }) => {
   const formik = useFormik({
     initialValues: {
-      username: "rfcku",
-      password: "tester",
+      username: process.env.DEFAULT_USER || "",
+      password: process.env.DEFAULT_USER_PASSWORD || "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {

@@ -24,7 +24,7 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const request = await fetch("http://localhost:4000/login", {
+        const request = await fetch(`${process.env.API_URI}/login`, {
           method: "POST",
           headers: {
             Accept: "application/json",

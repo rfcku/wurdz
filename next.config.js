@@ -11,6 +11,12 @@ const nextConfig = {
     domains: ["raw.githubusercontent.com"],
     formats: ["image/avif", "image/webp"],
   },
+  env: {
+    API_URL: process.env.API_URL,
+    SOCKET_URI: process.env.SOCKET_URI,
+    DEFAULT_USER: process.env.DEFAULT_USER,
+    DEFAULT_USER_PASSWORD: process.env.DEFAULT_USER_PASSWORD,
+  },
 };
 // const removeImports = require('next-remove-imports')();
 module.exports = removeImports(nextConfig);
