@@ -1,8 +1,9 @@
 const axios = require("axios");
 
+const API = process.env.API_URL || "https://wurdz-api.herokuapp.com";
+
 export const fetcher = (url) => {
-  console.log("Fetcher", url);
-  return fetch(`${API_URL}${url}`)
+  return fetch(`${API}${url}`)
     .then((res) => res.json())
     .then(({ data }) => data)
     .catch((error) => ({ error, data: [] }));
@@ -11,22 +12,15 @@ export const fetcher = (url) => {
 axios.defaults.withCredentials = false;
 
 const api = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: API,
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-export const api_multipart = axios.create({
-  baseURL: process.env.API_URL,
-  responseType: "json",
-  headers: {
-    "Content-Type": "multipart/form-data",
-  },
-});
-
 const interceptor = api.interceptors.request.use((config) => {
+  // console.log("Outgoing request", config);
   const myConfig = config;
   let token = false;
   if (typeof window !== "undefined") {
@@ -35,30 +29,17 @@ const interceptor = api.interceptors.request.use((config) => {
   if (token) {
     myConfig.headers.Authorization = `Bearer ${token}`;
   }
+  console.log("Outgoing request", myConfig.headers);
   return myConfig;
 });
-
-export const interceptor_multipart = api_multipart.interceptors.request.use(
-  (config) => {
-    const myConfig = config;
-    let token = false;
-    if (typeof window !== "undefined") {
-      token = localStorage.getItem("@@wurdz-token");
-    }
-    if (token) {
-      myConfig.headers.Authorization = `Bearer ${token}`;
-    }
-    return myConfig;
-  }
-);
 
 api.interceptors.response.use(
   ({ data }) => data,
   (error) => {
+    console.log("Request Error", error.response.data);
     return { error, data: [] };
   }
 );
 
 axios.interceptors.request.eject(interceptor);
-axios.interceptors.request.eject(interceptor_multipart);
 export default api;

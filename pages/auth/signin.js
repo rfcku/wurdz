@@ -7,14 +7,13 @@ export default function SignIn() {
   const router = useRouter();
   const { data: session } = useSession();
   const { query } = router;
-
   if (session) router.push("/");
 
-  if (query) {
-    if (query.error) {
-      console.log("Query Error -> ", query.error);
-    }
-  }
+  // if (query) {
+  //   if (query.error) {
+  //     console.log("Query Error -> ", query.error);
+  //   }
+  // }
   const { form, formik } = useLogin({
     onSubmit: () => router.push("/"),
   });

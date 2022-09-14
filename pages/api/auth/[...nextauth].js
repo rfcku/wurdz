@@ -1,11 +1,12 @@
-import axios from "../../../utils";
 import NextAuth from "next-auth";
-import AppleProvider from "next-auth/providers/apple";
-import GoogleProvider from "next-auth/providers/google";
+// import AppleProvider from "next-auth/providers/apple";
+// import GoogleProvider from "next-auth/providers/google";
 // import EmailProvider from "next-auth/providers/email";
+// import Auth0Provider from "next-auth/providers/auth0";
 import CredentialsProvider from "next-auth/providers/credentials";
-import Auth0Provider from "next-auth/providers/auth0";
+import api from "../../../utils";
 
+const API = process.env.API_URL || "https://wurdz-api.herokuapp.com";
 export default NextAuth({
   secret: process.env.SECRET,
   debug: true,
@@ -24,15 +25,9 @@ export default NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials, req) {
-        const request = await fetch(`${process.env.API_URI}/login`, {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(credentials),
-        });
-        const user = await request.json();
+        console.log("Accessing", API);
+        const { password, username } = credentials;
+        const user = await api.post(`${API}/login`, { password, username });
         if (user && user.token) {
           if (typeof window !== "undefined") {
             const token = JSON.stringify(user.token);

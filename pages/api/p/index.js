@@ -1,9 +1,9 @@
 import api from "../../../utils";
 export default async function handler(req, res) {
-  const populates = ["author", "votes", "board"];
+  const populates = ["author", "votes", "comments"];
   const { token } = req.query;
   const posts = await api
-    .get(`${API_URL}/all?populate=${populates.join(",")}`)
+    .get(`/all?populate=${populates.join(",")}`)
     .then(({ data, error }) => {
       if (!error) return data;
       throw error;

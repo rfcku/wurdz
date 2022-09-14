@@ -1,11 +1,10 @@
-import Boards from "../components/boards/list";
-import Tags from "../components/tags/list";
 import AllPosts from "../components/post/list";
 import Layout from "../components/layout";
+import api, { fetcher } from "../utils";
 
 export default function Home() {
   return (
-    <Layout left={<Boards />} right={<Tags />}>
+    <Layout>
       <AllPosts />
     </Layout>
   );
