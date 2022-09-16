@@ -8,7 +8,7 @@ export const Header = (post) => {
 
   return (
     <>
-      <Avatar />
+      <Avatar author={author} />
       <Grid.Container css={{ pl: "$6" }}>
         <Grid css={{ textAlign: "left" }}>
           {board && board.name && (

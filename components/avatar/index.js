@@ -1,41 +1,27 @@
-import React from "react";
-import {
-  Modal,
-  Input,
-  Avatar,
-  Row,
-  Grid,
-  Checkbox,
-  Button,
-  Text,
-} from "@nextui-org/react";
-
-export default function App() {
-  const [visible, setVisible] = React.useState(false);
+import { useState } from "react";
+import { Modal, Avatar, Grid, Button, Text } from "@nextui-org/react";
+import { FaRegHeart, FaShareSquare, FaHeart } from "react-icons/fa";
+import { BiMessageDetail } from "react-icons/bi";
+export default function App({ author }) {
+  const [visible, setVisible] = useState(false);
+  const [heart, setHeart] = useState(false);
   const handler = () => setVisible(true);
   const closeHandler = () => {
     setVisible(false);
     console.log("closed");
   };
+  if (!author) return <>No Author</>;
+  const { _id, username, imageUrl } = author;
   return (
     <div>
-      <Button
-        auto
-        color="gray"
-        // shadow
+      <Avatar
         onClick={handler}
+        src={imageUrl}
+        width="34px"
+        bordered
+        height="34px"
+        color="gradient"
         style={{ cursor: "pointer" }}
-        squared
-        icon={
-          <Avatar
-            onClick={handler}
-            squared
-            src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-            width="34px"
-            height="34px"
-            style={{ cursor: "pointer" }}
-          />
-        }
       />
       <Modal
         closeButton
@@ -46,22 +32,35 @@ export default function App() {
       >
         <Modal.Header>
           <Text h3>
+            {/* <Avatar src={imageUrl} css={{ size: "$20" }} /> */}
             <Avatar
-              src="https://i.pravatar.cc/150?u=a04258114e29026702d"
-              css={{ size: "$20" }}
+              onClick={handler}
+              src={imageUrl}
+              width="34px"
+              bordered
+              height="34px"
+              color="gradient"
+              css={{ cursor: "pointer", size: "$30" }}
             />
-            FirstName
-            <Text>@useName</Text>
+            <Text weight={"bold"}>@{username}</Text>
+            <Text small>
+              <code>{_id}</code>
+            </Text>
           </Text>
         </Modal.Header>
         <Modal.Body>
           <Grid.Container>
-            <Grid xs={12} align="center" justify="center"></Grid>
             <Grid xs={12} align="center" justify="center">
-              <Button.Group color="success">
-                <Button>Follow</Button>
-                <Button>Message</Button>
-                <Button>Share</Button>
+              <Button.Group color="gradient" ghost>
+                <Button onClick={() => setHeart(!heart)}>
+                  {heart ? <FaRegHeart /> : <FaHeart />}
+                </Button>
+                <Button>
+                  <BiMessageDetail />
+                </Button>
+                <Button>
+                  <FaShareSquare />
+                </Button>
               </Button.Group>
             </Grid>
           </Grid.Container>

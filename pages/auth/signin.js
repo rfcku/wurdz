@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { getProviders, useSession } from "next-auth/react";
 import { Grid, Container, Text, Button, Spacer } from "@nextui-org/react";
 import { useRouter } from "next/router";
@@ -8,12 +9,6 @@ export default function SignIn() {
   const { data: session } = useSession();
   const { query } = router;
   if (session) router.push("/");
-
-  // if (query) {
-  //   if (query.error) {
-  //     console.log("Query Error -> ", query.error);
-  //   }
-  // }
   const { form, formik } = useLogin({
     onSubmit: () => router.push("/"),
   });

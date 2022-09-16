@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { Text, User, Dropdown, Modal, Button } from "@nextui-org/react";
 import { FaUserAstronaut } from "react-icons/fa";
 import { useLogin } from "../hooks/useLogin";
+import gravatar from "gravatar";
 
 export default function Component() {
   const { data: session } = useSession();
@@ -13,12 +14,23 @@ export default function Component() {
   });
   const [visible, setVisible] = useState(false);
 
+  useEffect(() => {
+    if (session) {
+      localStorage.setItem("@@wurdz-token", session.user.token);
+    }
+  }, [session]);
+
   const handler = () => setVisible(true);
 
   const closeHandler = () => {
     setVisible(false);
   };
 
+  const secureUrl = gravatar.url(
+    (session && session.user && session.user.email) || "email@email.com",
+    { s: "100", r: "x", d: "retro" },
+    true
+  );
   if (session) {
     return (
       <Dropdown placement="bottom-right" type="menu" trigger="press">
@@ -29,8 +41,7 @@ export default function Component() {
             size="lg"
             color="primary"
             name={session.user.name}
-            // description={session.user.email}
-            src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+            src={secureUrl}
           />
         </Dropdown.Trigger>
         <Dropdown.Menu
@@ -55,7 +66,7 @@ export default function Component() {
                 color="primary"
                 name={session.user.name}
                 description={session.user.email}
-                src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
+                src={secureUrl}
               />
             </Text>
           </Dropdown.Item>

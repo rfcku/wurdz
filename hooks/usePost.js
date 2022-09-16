@@ -1,4 +1,5 @@
 import api from "../utils";
+import { useSession } from "next-auth/react";
 import { Grid, Textarea } from "@nextui-org/react";
 import { useAlert } from "react-alert";
 import { useFormik } from "formik";
@@ -18,10 +19,18 @@ export const usePost = ({ onSubmit }) => {
       data: JSON.stringify({ ...values }),
       responseType: "json",
     })
-      .then((res) => {
-        alert.show("Post Posted!");
+      .then(({ data, error }) => {
+        console.log("THIS RES", error.message);
+        if (error) {
+          alert.show(`Error: ${error.message}`, {
+            type: "error",
+          });
+        } else {
+          alert.show("Posted!");
+        }
       })
       .catch((err) => {
+        console.log("Error");
         alert.error("Something went wrong, try again.");
       });
   };

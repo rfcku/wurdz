@@ -29,12 +29,7 @@ export default NextAuth({
         const { password, username } = credentials;
         const user = await api.post(`${API}/login`, { password, username });
         if (user && user.token) {
-          if (typeof window !== "undefined") {
-            const token = JSON.stringify(user.token);
-            console.log("Token", token);
-            localStorage.setItem("@@wurdz-token", token);
-          }
-
+          console.log("user response", user, user.token);
           return user;
         } else {
           return null;
@@ -42,4 +37,17 @@ export default NextAuth({
       },
     }),
   ],
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      // console.log("jwt callback", token, user);
+      user && (token.user = user);
+      // console.log("jwt callback", token, user);
+      return token;
+    },
+    session: async ({ session, token }) => {
+      console.log("session callback", session, token);
+      session.user = token.user;
+      return session;
+    },
+  },
 });

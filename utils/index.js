@@ -1,6 +1,7 @@
 const axios = require("axios");
 
 const API = process.env.API_URL || "https://wurdz-api.herokuapp.com";
+// const API = process.env.API_URL || "http://localhost:4000";
 
 export const fetcher = (url) => {
   return fetch(`${API}${url}`)
@@ -20,24 +21,23 @@ const api = axios.create({
 });
 
 const interceptor = api.interceptors.request.use((config) => {
-  // console.log("Outgoing request", config);
-  const myConfig = config;
   let token = false;
   if (typeof window !== "undefined") {
     token = localStorage.getItem("@@wurdz-token");
   }
   if (token) {
-    myConfig.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`;
   }
-  console.log("Outgoing request", myConfig.headers);
-  return myConfig;
+  config.headers.Authorization = `Bearer ${token}`;
+  console.log("Outgoing request", config.headers);
+  return config;
 });
 
 api.interceptors.response.use(
   ({ data }) => data,
   (error) => {
     console.log("Request Error", error.response.data);
-    return { error, data: [] };
+    return { error: error.response.data, data: [] };
   }
 );
 

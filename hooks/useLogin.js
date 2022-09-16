@@ -22,7 +22,7 @@ export const useLogin = ({ onSubmit }) => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       signIn("credentials", { ...values }).then((resp) => {
-        console.log("NextAuth credentials response");
+        console.log("NextAuth credentials response", resp);
         if (onSubmit && typeof onSubmit === "function") onSubmit(resp);
       });
     },
