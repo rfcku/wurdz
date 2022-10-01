@@ -1,5 +1,6 @@
 import api from "../utils";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { Grid, Textarea } from "@nextui-org/react";
 import { useAlert } from "react-alert";
 import { useFormik } from "formik";
@@ -7,6 +8,7 @@ import * as yup from "yup";
 
 export const usePost = ({ onSubmit }) => {
   const alert = useAlert();
+  const router = useRouter();
 
   const validationSchema = yup.object({
     title: yup.string("Give it a title"),
@@ -14,25 +16,29 @@ export const usePost = ({ onSubmit }) => {
   });
 
   const save = (values) => {
-    return api(`/p`, {
+    return api(`/p/create`, {
       method: "POST",
       data: JSON.stringify({ ...values }),
       responseType: "json",
     })
       .then(({ data, error }) => {
-        console.log("THIS RES", error.message);
         if (error) {
           alert.show(`Error: ${error.message}`, {
             type: "error",
           });
         } else {
           alert.show("Posted!");
+          reload();
         }
       })
       .catch((err) => {
         console.log("Error");
         alert.error("Something went wrong, try again.");
       });
+  };
+
+  const reload = () => {
+    router.replace(router.asPath);
   };
 
   const formik = useFormik({
@@ -59,7 +65,7 @@ export const usePost = ({ onSubmit }) => {
             placeholder="Enter your amazing ideas."
             minRows={4}
             maxRows={4}
-            shadow
+            shadow={false}
             value={formik.values.body}
             onChange={formik.handleChange}
           />

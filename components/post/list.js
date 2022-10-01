@@ -1,25 +1,25 @@
-import { Container } from "@nextui-org/react";
 import { List, ListItem } from "@mui/material";
-import Post from "../post";
+import { Container } from "@nextui-org/react";
 import useSWR from "swr";
 import api from "../../utils";
+import Post from "../post";
 
-export default function Module() {
-  const populate = ["comments", "board", "author", "votes"];
-  const { data, error } = useSWR(`/all?populate=${populate.join(",")}`, api);
-  if (!data) return <div>No Data</div>;
-  const { rows, total, page, pageSize, totalPages } = data;
+export default function Module({ data }) {
+  console.log("data", data);
+  if (!data) return null;
   return (
-    <List>
-      {data &&
-        data.rows &&
-        data.rows.map((post, i) => {
-          return (
-            <ListItem xs={12} key={i}>
-              <Post {...post} />
-            </ListItem>
-          );
-        })}
-    </List>
+    <Container gap={1} style={{ padding: 50 }}>
+      <List>
+        {data &&
+          data.rows &&
+          data.rows.map((post, i) => {
+            return (
+              <ListItem xs={12} key={i}>
+                <Post {...post} />
+              </ListItem>
+            );
+          })}
+      </List>
+    </Container>
   );
 }

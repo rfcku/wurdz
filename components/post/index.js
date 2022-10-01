@@ -11,7 +11,7 @@ import { useComments } from "../../hooks/useComments";
 import { Input } from "../comments/input";
 export default function Posts(post) {
   const { _id, body, votes, comments, thread, isPressable, isHoverable } = post;
-
+  console.log("THIS THREAD", thread);
   const router = useRouter();
   const { query } = router;
   const {
@@ -30,7 +30,7 @@ export default function Posts(post) {
   return (
     <Card
       css={{ p: "$6" }}
-      isPressable={isPressable !== undefined ? isPressable : true}
+      isPressable={isPressable !== undefined ? isPressable : false}
       isHoverable={isHoverable !== undefined ? isHoverable : false}
       onPress={(e) => {
         return router.push(`/p/${_id}?c=true`);
@@ -40,7 +40,12 @@ export default function Posts(post) {
         <Header {...post} />
       </Card.Header>
       <Card.Body style={{ paddingTop: 0 }}>
-        <TextTags text={body} />
+        <div
+          onClick={() => router.push(`/p/${_id}?c=true`)}
+          style={{ cursor: "pointer" }}
+        >
+          <TextTags text={body} />
+        </div>
         {input && (
           <Input
             value={value}

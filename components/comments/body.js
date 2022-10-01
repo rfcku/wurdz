@@ -16,7 +16,7 @@ export const Body = (comment) => {
     save,
   } = useComments({
     tid,
-    cid,
+    cid: _id,
   });
 
   return (

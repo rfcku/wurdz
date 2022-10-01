@@ -17,7 +17,6 @@ export default function App() {
 
   const closeHandler = () => {
     setVisible(false);
-    console.log("closed");
   };
 
   return (

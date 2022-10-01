@@ -2,10 +2,12 @@ import { useState } from "react";
 import api from "../utils";
 import { useAlert } from "react-alert";
 import { useSession, signIn } from "next-auth/react";
+import { useRouter } from "next/router";
 
 export const useComments = ({ tid, cid, defaults, actions }) => {
   const { data: session } = useSession();
   const alert = useAlert();
+  const router = useRouter();
 
   const [visible, setVisible] = useState(
     defaults && defaults.visible ? true : false
@@ -27,14 +29,15 @@ export const useComments = ({ tid, cid, defaults, actions }) => {
     return !!value;
   };
 
+  const reload = () => router.replace(router.asPath);
+
   const save = () => {
     if (!session) return signIn();
 
     if (!validateInput()) return false;
-
     return api(`/c`, {
       method: "POST",
-      data: JSON.stringify({ tid, text: value, cid: cid || "" }),
+      data: JSON.stringify({ tid, text: value, cid: cid }),
       responseType: "json",
       headers: {
         "Content-Type": "application/json",
@@ -42,9 +45,9 @@ export const useComments = ({ tid, cid, defaults, actions }) => {
     })
       .then((res) => {
         alert.show("Comment Posted!");
-        console.log("TJISLKASDFNLAKSD");
         setVisible(false);
         setValue("");
+        reload();
         if (
           actions &&
           actions.onSubmit &&

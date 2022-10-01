@@ -2,7 +2,7 @@ import { Grid, Container } from "@nextui-org/react";
 import Navbar from "../navbar";
 export default function Layout({ children, left, right }) {
   return (
-    <Grid.Container>
+    <>
       <Navbar />
       <Grid.Container alignContent="center" justify="center">
         {/* <Grid xs={2}>{left}</Grid> */}
@@ -11,6 +11,6 @@ export default function Layout({ children, left, right }) {
         </Grid>
         {/* <Grid xs={2}>{right}</Grid> */}
       </Grid.Container>
-    </Grid.Container>
+    </>
   );
 }

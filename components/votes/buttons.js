@@ -9,8 +9,8 @@ export const VoteButtons = ({ size, votes }) => {
   const { _id, count } = votes;
   return (
     <Grid.Container direction="row">
-      <IconButton size="small" color="success">
-        <TiArrowUpOutline onClick={() => vote(_id, true)} />
+      <IconButton onClick={() => vote(_id, true)} size="small" color="success">
+        <TiArrowUpOutline />
       </IconButton>
       <div
         style={{
@@ -24,8 +24,8 @@ export const VoteButtons = ({ size, votes }) => {
           <b>&nbsp;{(count && count) || "Vote"}&nbsp;</b>
         </Text>
       </div>
-      <IconButton size="small" color="primary">
-        <TiArrowDownOutline onClick={() => vote(_id, false)} />
+      <IconButton size="small" onClick={() => vote(_id, false)} color="primary">
+        <TiArrowDownOutline />
       </IconButton>
     </Grid.Container>
   );
