@@ -1,7 +1,7 @@
 const axios = require("axios");
 
-// const API = process.env.API_URL || "https://wurdz-api.herokuapp.com";
-const API = process.env.API_URL || "http://localhost:4000";
+const API = process.env.API_URL || "https://wurdz-api.herokuapp.com";
+// const API = process.env.API_URL || "http://localhost:4000";
 
 export const fetcher = (url) => {
   return fetch(`${API}${url}`)

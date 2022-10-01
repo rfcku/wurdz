@@ -6,7 +6,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import api from "../../../utils";
 
-const API = process.env.API_URL || "http://localhost:4000"; //"https://wurdz-api.herokuapp.com";
+const API = process.env.API_URL || "https://wurdz-api.herokuapp.com";
 export default NextAuth({
   secret: process.env.SECRET,
   debug: true,
